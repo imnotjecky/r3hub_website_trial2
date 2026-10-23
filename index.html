@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R3Hub Technologies | System Integrator & IT Solutions Partner</title>
+<meta name="description" content="R3Hub Technologies Inc. is a Davao–Cebu based system integrator providing data center, network, security, surveillance, power and software solutions across the Philippines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy-950:#061330; --navy-900:#0A1F44; --navy-800:#0F2D63; --navy-700:#16407f;
+  --orange:#FF6B1A; --orange-600:#E85A0C; --orange-100:#FFEFE5;
+  --white:#fff; --mist:#F3F6FB; --line:#DCE4F0; --ink:#0A1F44; --muted:#52627F;
+  --radius:14px; --max:1180px;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:var(--font);color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+.ic{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
+
+/* Type */
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em;font-weight:800}
+h1{font-size:clamp(2.3rem,5vw,3.7rem)}
+h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+h3{font-size:1.1rem;letter-spacing:-.01em}
+.eyebrow{display:inline-block;color:var(--orange);font-weight:700;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.accent{color:var(--orange)}
+.lead{font-size:1.06rem;color:var(--muted);max-width:60ch}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:.95rem;border:2px solid transparent;cursor:pointer;font-family:inherit;transition:transform .2s,background .2s,box-shadow .2s,border-color .2s}
+.btn .ic{font-size:1.1em;transition:transform .2s}
+.btn:hover .ic{transform:translateX(4px)}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px rgba(255,107,26,.8)}
+.btn-primary:hover{background:var(--orange-600)}
+.btn-ghost{border-color:rgba(255,255,255,.45);color:#fff}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.btn-outline{border-color:var(--orange);color:var(--orange)}
+.btn-outline:hover{background:var(--orange);color:#fff}
+.btn-sm{padding:10px 20px;font-size:.88rem}
+
+/* Header */
+.header{position:sticky;top:0;z-index:50;background:rgba(6,19,48,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07)}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
+.logo{display:flex;flex-direction:column;line-height:1}
+.logo b{font-size:2rem;font-weight:800;letter-spacing:-.04em;color:#fff}
+.logo b .r3{color:var(--orange)}
+.logo small{font-size:.5rem;letter-spacing:.2em;color:#9db0d2;margin-top:4px;font-weight:600}
+.nav ul{display:flex;gap:30px}
+.nav a{color:#dbe5f7;font-size:.9rem;font-weight:600;padding:8px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav a:hover,.nav a.active{color:#fff;border-color:var(--orange)}
+.menu-btn{display:none;background:none;border:0;color:#fff;font-size:1.7rem;cursor:pointer}
+
+/* Hero */
+.hero{position:relative;background:var(--navy-900);color:#fff;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(900px 500px at 15% 20%,rgba(22,64,127,.55),transparent 60%),
+  linear-gradient(120deg,var(--navy-950) 0%,var(--navy-900) 55%,var(--navy-800) 100%);z-index:-2}
+.hero::after{content:"";position:absolute;left:-110px;top:-40px;width:170px;height:300px;background:linear-gradient(160deg,var(--orange),#ff9a4d);clip-path:polygon(0 0,100% 30%,0 100%);opacity:.95;z-index:-1}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;min-height:600px;padding-top:70px;padding-bottom:70px}
+.hero h1{margin-bottom:22px}
+.hero p.lead{color:#c3d1ea;margin-bottom:34px;font-size:1.12rem}
+.hero .actions{display:flex;gap:14px;flex-wrap:wrap}
+.hero-media{position:relative}
+.hero-media .frame{border-radius:22px;overflow:hidden;aspect-ratio:4/4.3;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.12)}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:35% center}
+.hero-media::before{content:"";position:absolute;right:-18px;bottom:-18px;width:62%;height:62%;border-radius:22px;border:2px solid var(--orange);z-index:-1}
+.tagline{position:absolute;left:-28px;bottom:36px;background:#fff;color:var(--navy-900);padding:16px 22px;border-radius:12px;border-left:5px solid var(--orange);box-shadow:0 20px 40px -18px rgba(0,0,0,.6);font-weight:700;font-size:.92rem;line-height:1.35}
+.tagline span{display:block;font-weight:500;color:var(--muted);font-size:.78rem}
+
+/* Capabilities strip */
+.strip{background:#fff;position:relative;z-index:2;margin-top:-1px}
+.strip ul{display:grid;grid-template-columns:repeat(6,1fr)}
+.strip li{padding:34px 14px;text-align:center;border-right:1px solid var(--line);transition:background .25s}
+.strip li:last-child{border:0}
+.strip li:hover{background:var(--mist)}
+.strip .ic{font-size:2.3rem;color:var(--navy-800);margin:0 auto 12px;display:block;stroke-width:1.4}
+.strip li:hover .ic{color:var(--orange)}
+.strip span{font-weight:700;font-size:.9rem;line-height:1.3;display:block}
+
+/* Sections */
+section{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+.sec-head .lead{max-width:44ch}
+
+/* About */
+.about{background:var(--mist);padding:0;overflow:hidden}
+.about .grid{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.about .photo{position:relative;min-height:520px}
+.about .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.about .photo::after{content:"";position:absolute;top:0;right:-1px;bottom:0;width:90px;background:var(--mist);clip-path:polygon(100% 0,100% 100%,0 100%)}
+.about .photo::before{content:"";position:absolute;top:0;right:30px;bottom:0;width:30px;background:var(--orange);clip-path:polygon(100% 0,100% 100%,0 100%);z-index:1}
+.about .text{padding:90px 24px 90px 40px;max-width:600px}
+.about h2{margin-bottom:22px;color:var(--navy-900)}
+.about p{color:var(--muted);margin-bottom:16px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0 32px}
+.facts li{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:.92rem}
+.facts .ic{color:var(--orange);font-size:1.25rem;margin-top:2px;stroke-width:2.4}
+
+/* Solutions */
+.solutions{background:linear-gradient(180deg,var(--navy-900),var(--navy-950));color:#fff}
+.solutions .lead{color:#b4c4e2}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:28px 24px;display:flex;flex-direction:column;gap:12px;transition:transform .25s,border-color .25s,background .25s}
+.card:hover{transform:translateY(-6px);border-color:var(--orange);background:rgba(255,255,255,.07)}
+.card .ic{font-size:2.1rem;color:var(--orange);margin-bottom:6px}
+.card p{color:#b4c4e2;font-size:.92rem}
+.more{margin-top:44px;padding-top:34px;border-top:1px solid rgba(255,255,255,.12)}
+.more h3{font-size:.95rem;color:#fff;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips li{padding:8px 16px;border-radius:999px;font-size:.85rem;font-weight:600;border:1px solid rgba(255,255,255,.22);color:#dbe5f7}
+.chips.light li{border-color:var(--line);color:var(--navy-800);background:#fff}
+
+/* Process */
+.process{background:#fff}
+.steps{display:grid;grid-template-columns:repeat(7,1fr);gap:0;position:relative;counter-reset:s}
+.steps::before{content:"";position:absolute;top:30px;left:7%;right:7%;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 16px)}
+.step{text-align:center;padding:0 8px;position:relative;counter-increment:s}
+.step .dot{width:60px;height:60px;border-radius:50%;background:#fff;border:2px solid var(--orange);color:var(--orange);display:grid;place-items:center;margin:0 auto 16px;font-weight:800;font-size:1.05rem}
+.step .dot::before{content:counter(s)}
+.step:hover .dot{background:var(--orange);color:#fff}
+.step h3{font-size:.92rem}
+
+/* Why */
+.why{background:var(--mist)}
+.why .grid{display:grid;grid-template-columns:.8fr 2fr;gap:56px;align-items:center}
+.why-items{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.why-item{background:#fff;border-radius:var(--radius);padding:28px;border:1px solid var(--line);display:flex;gap:18px;transition:box-shadow .25s,transform .25s}
+.why-item:hover{box-shadow:0 24px 44px -26px rgba(10,31,68,.5);transform:translateY(-3px)}
+.why-item .ic{font-size:2rem;color:var(--navy-800);background:var(--orange-100);padding:12px;width:56px;height:56px;border-radius:14px;color:var(--orange)}
+.why-item p{color:var(--muted);font-size:.9rem;margin-top:6px}
+
+/* Partners */
+.partners{padding:72px 0;background:#fff}
+.partners .top{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;flex-wrap:wrap;margin-bottom:28px}
+
+/* Industries */
+.industries{background:var(--navy-900);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.industries::before{content:"";position:absolute;inset:0;background:url(assets/datacenter.jpg) center/cover;opacity:.12;z-index:-1}
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ind{border:1px solid rgba(255,255,255,.16);background:rgba(10,31,68,.6);backdrop-filter:blur(4px);border-radius:var(--radius);padding:26px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;font-weight:700;font-size:.95rem;transition:background .25s,border-color .25s}
+.ind:hover{background:rgba(255,107,26,.14);border-color:var(--orange)}
+.ind .ic{font-size:2.1rem;color:var(--orange)}
+
+/* Projects */
+.projects{background:#fff}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.proj{margin:0;position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;background:var(--navy-900);color:#fff}
+.proj.tall{grid-row:span 2;aspect-ratio:auto}
+.proj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.proj:hover img{transform:scale(1.06)}
+.proj::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(6,19,48,.92))}
+.proj .cap{position:absolute;left:0;right:0;bottom:0;padding:22px;z-index:1}
+.proj .cap small{color:var(--orange);font-weight:700;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
+.proj .cap h3{margin-top:4px;font-size:1.05rem}
+
+/* Offices / legitimacy */
+.offices{background:var(--mist)}
+.off-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.off{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.off .ic{font-size:1.8rem;color:var(--orange);margin-bottom:14px}
+.off p{color:var(--muted);font-size:.93rem;margin-top:6px}
+
+/* CTA + contact */
+.contact{background:linear-gradient(120deg,var(--navy-950),var(--navy-800));color:#fff;position:relative;overflow:hidden}
+.contact::after{content:"";position:absolute;right:-60px;bottom:-60px;width:300px;height:300px;background:var(--orange);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.9}
+.contact .grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;position:relative;z-index:1}
+.contact .lead{color:#c3d1ea;margin:18px 0 28px}
+.clist li{display:flex;gap:14px;align-items:center;margin-bottom:16px;font-weight:600}
+.clist .ic{font-size:1.3rem;color:var(--orange);background:rgba(255,255,255,.08);padding:10px;width:44px;height:44px;border-radius:12px}
+form{background:#fff;color:var(--ink);border-radius:20px;padding:32px;display:grid;gap:16px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+form h3{font-size:1.3rem}
+label{font-size:.82rem;font-weight:700;display:grid;gap:6px}
+input,select,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);background:#fff;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px var(--orange-100)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* Footer */
+footer{background:var(--navy-950);color:#aebcd8;padding:64px 0 0;font-size:.92rem}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1.3fr 1fr;gap:40px;padding-bottom:48px}
+footer h4{color:#fff;font-size:.95rem;margin-bottom:16px}
+footer li{margin-bottom:10px}
+footer a:hover{color:var(--orange)}
+footer .logo{margin-bottom:16px}
+.social{display:flex;gap:10px}
+.social a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;font-size:1.1rem;color:#fff;transition:background .2s,border-color .2s}
+.social a:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+.legal{border-top:1px solid rgba(255,255,255,.08);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem}
+.legal span:last-child{border-left:3px solid var(--orange);padding-left:12px}
+
+/* Responsive */
+@media (max-width:1020px){
+  .hero .wrap{grid-template-columns:1fr;min-height:0}
+  .hero-media{max-width:520px}
+  .tagline{left:12px}
+  .strip ul{grid-template-columns:repeat(3,1fr)}
+  .strip li{border-bottom:1px solid var(--line)}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(4,1fr);row-gap:30px}.steps::before{display:none}
+  .why .grid,.contact .grid,.about .grid{grid-template-columns:1fr}
+  .about .photo{min-height:340px}.about .photo::before,.about .photo::after{display:none}
+  .about .text{padding:56px 24px;max-width:none}
+  .ind-grid{grid-template-columns:repeat(2,1fr)}
+  .proj-grid{grid-template-columns:repeat(2,1fr)}.proj.tall{grid-row:auto;aspect-ratio:4/3}
+  .off-grid{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .menu-btn{display:block}
+  .nav{position:absolute;top:76px;left:0;right:0;background:var(--navy-950);padding:12px 24px 24px;display:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .nav.open{display:block}
+  .nav ul{flex-direction:column;gap:6px}
+  .header .btn-sm{display:none}
+}
+@media (max-width:620px){
+  section{padding:68px 0}
+  .strip ul{grid-template-columns:repeat(2,1fr)}
+  .cards,.why-items,.proj-grid,.row,.foot{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .ind-grid{grid-template-columns:1fr 1fr}
+  .facts{grid-template-columns:1fr}
+  .hero::after{width:110px;height:200px;left:-70px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-5h14v5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 1 1 1-8.9A6 6 0 0 1 19.5 11 3.5 3.5 0 0 1 18 18z"/></symbol>
+<symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M11 6.5h6M11 17.5h6"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="7"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+<symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="4" height="6" rx="1"/><rect x="18" y="14" width="4" height="6" rx="1"/><path d="M20 20c0 1.5-2 2-5 2"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M17 4.5a3.5 3.5 0 0 1 0 7M22 20c0-3-1.5-5-4-5.7"/></symbol>
+<symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="i-grad" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></symbol>
+<symbol id="i-cross" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></symbol>
+<symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M9 21V10M15 21V10M19 21V10M2 10l10-7 10 7z"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l1.5-5h15L21 9M5 9v11h14V9"/><path d="M3 9c0 2 3 2 3 0 0 2 3 2 3 0 0 2 3 2 3 0 0 2 3 2 3 0 0 2 3 2 3 0"/></symbol>
+<symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21v-9"/><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6zM12 15c0-3-2-5-6-5 0 3 2 5 6 5z"/></symbol>
+<symbol id="i-hardhat" viewBox="0 0 24 24"><path d="M3 18h18M5 18v-3a7 7 0 0 1 14 0v3M12 8v4M9 8h6"/></symbol>
+<symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h11v10H2zM13 9h4l4 4v3h-8"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+<symbol id="i-coop" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12a4 4 0 0 1 8 0M12 8v8"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
+</defs>
+</svg>
+
+<header class="header">
+  <div class="wrap">
+    <a href="#home" class="logo" aria-label="R3Hub Technologies home">
+      <b><span class="r3">R3</span>Hub</b>
+      <small>SYSTEMS • SOLUTIONS • TOGETHER</small>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">How We Work</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="btn btn-primary btn-sm">Get a Quote <svg class="ic"><use href="#i-arrow"/></svg></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><svg class="ic"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home" style="padding:0">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">R3Hub Technologies Inc.</span>
+      <h1>Your Trusted <span class="accent">System Integrator</span> and IT Solutions Partner</h1>
+      <p class="lead">We design, build, and support reliable technology solutions that help businesses connect, operate, and grow, from Davao and Cebu to the rest of the Philippines.</p>
+      <div class="actions">
+        <a href="#services" class="btn btn-primary">Our Services <svg class="ic"><use href="#i-arrow"/></svg></a>
+        <a href="#contact" class="btn btn-ghost">Talk to Our Team</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="frame"><img src="assets/hero-sign.jpg" alt="R3Hub Technologies logo sign inside the R3Hub office" fetchpriority="high"></div>
+      <div class="tagline">Empowering Innovation,<br>Driving Efficiency.<span>Your trusted IT solution provider</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES STRIP -->
+<div class="strip">
+  <div class="wrap">
+    <ul>
+      <li><svg class="ic"><use href="#i-server"/></svg><span>Data Center<br>Solutions</span></li>
+      <li><svg class="ic"><use href="#i-network"/></svg><span>Network<br>Infrastructure</span></li>
+      <li><svg class="ic"><use href="#i-shield"/></svg><span>Security &amp;<br>Surveillance</span></li>
+      <li><svg class="ic"><use href="#i-bolt"/></svg><span>Power &amp;<br>Cooling</span></li>
+      <li><svg class="ic"><use href="#i-cloud"/></svg><span>Cloud &amp;<br>Virtualization</span></li>
+      <li><svg class="ic"><use href="#i-monitor"/></svg><span>Software &amp;<br>Hardware</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="grid">
+    <div class="photo"><img src="assets/office.jpg" alt="R3Hub Technologies office entrance in Davao City" loading="lazy"></div>
+    <div class="text">
+      <span class="eyebrow">About Us</span>
+      <h2>Building Smarter IT Infrastructure for a <span class="accent">Connected Future</span></h2>
+      <p>R3Hub Technologies is a Davao–Cebu based company providing IT solutions and services all over the Philippines. We were founded by experienced professionals with over a decade in IT infrastructure, engineering, system integration, and software management systems.</p>
+      <p>Our expertise covers data centers, power and cooling, network security, healthcare systems, ERP, auxiliary systems, and other IT-related solutions. The name R3HUB reflects our commitment to high-quality services and solutions.</p>
+      <ul class="facts">
+        <li><svg class="ic"><use href="#i-check"/></svg>10+ years of combined experience</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>Offices in Davao and Cebu</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>Certified support engineers</li>
+        <li><svg class="ic"><use href="#i-check"/></svg>Nationwide project delivery</li>
+      </ul>
+      <a href="#contact" class="btn btn-outline">Work With Us <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section class="solutions" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Our Solutions</span>
+        <h2>Technology Solutions for <span class="accent">Every Business Need</span></h2>
+      </div>
+      <p class="lead">From the server room to the front door, we provide end-to-end IT and infrastructure services tailored to your goals.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><svg class="ic"><use href="#i-server"/></svg><h3>Data Center Solutions</h3><p>Design and build of data centers, plus server, storage, and hyper-converged infrastructure.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-network"/></svg><h3>Network Infrastructure</h3><p>SD-WAN, managed switches, access points, and structured cabling in copper and fiber.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-shield"/></svg><h3>Network Security</h3><p>Firewalls and secure connectivity, including VSAT and wireless point-to-point links.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-video"/></svg><h3>Surveillance &amp; Security</h3><p>CCTV, command centers, smart city systems, and access control with biometrics.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-bolt"/></svg><h3>Power &amp; Cooling</h3><p>UPS, precision air conditioning, generator sets, and solar powered systems.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-cloud"/></svg><h3>Managed Cloud Services</h3><p>Managed cloud services provider (MCSP) offerings and virtualization infrastructure.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-monitor"/></svg><h3>Display &amp; Audio</h3><p>Smart TVs, LED walls, kiosks, VoIP, conferencing, and background music systems.</p></article>
+      <article class="card"><svg class="ic"><use href="#i-doc"/></svg><h3>Software Systems</h3><p>ERP, hospital information systems, school systems, and software licenses.</p></article>
+    </div>
+    <div class="more">
+      <h3>Also available</h3>
+      <ul class="chips">
+        <li>Fire detection &amp; burglar alarms</li><li>Public address systems</li><li>Time &amp; attendance</li><li>Turnstiles &amp; speed gates</li><li>Enterprise drones</li><li>Desktops, laptops &amp; printers</li><li>Wireless infrastructure</li><li>…and other IT-related solutions</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Our Skill Set</span>
+        <h2>From First Conversation to <span class="accent">Long-Term Support</span></h2>
+      </div>
+      <p class="lead">We understand your challenges first, then design a solution that fits.</p>
+    </div>
+    <ol class="steps" style="list-style:none">
+      <li class="step"><div class="dot"></div><h3>Consultation &amp; Assessment</h3></li>
+      <li class="step"><div class="dot"></div><h3>Layout &amp; Design</h3></li>
+      <li class="step"><div class="dot"></div><h3>System Integration</h3></li>
+      <li class="step"><div class="dot"></div><h3>Implementation &amp; Installation</h3></li>
+      <li class="step"><div class="dot"></div><h3>End-User Training</h3></li>
+      <li class="step"><div class="dot"></div><h3>Maintenance</h3></li>
+      <li class="step"><div class="dot"></div><h3>Troubleshooting</h3></li>
+    </ol>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow">Why Choose Us</span>
+      <h2>More Than Just <span class="accent">IT Solutions</span></h2>
+      <p class="lead" style="margin-top:18px">We are a team of problem-solvers, innovators, and partners.</p>
+    </div>
+    <div class="why-items">
+      <div class="why-item"><svg class="ic"><use href="#i-users"/></svg><div><h3>Experienced Team</h3><p>Founders with over a decade in infrastructure, engineering, and system integration.</p></div></div>
+      <div class="why-item"><svg class="ic"><use href="#i-award"/></svg><div><h3>Certified Engineers</h3><p>Support engineers certified by Cisco, Dell, H3C, Hikvision, Microsoft, Ruijie, Sangfor, VMware, and more.</p></div></div>
+      <div class="why-item"><svg class="ic"><use href="#i-target"/></svg><div><h3>Tailored Solutions</h3><p>We offer brands according to your preference and design around your needs.</p></div></div>
+      <div class="why-item"><svg class="ic"><use href="#i-clock"/></svg><div><h3>Reliable Support</h3><p>Training, maintenance, and troubleshooting long after installation.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="wrap">
+    <div class="top">
+      <div><span class="eyebrow">Business Partners &amp; Certifications</span><h2 style="font-size:clamp(1.5rem,2.6vw,2rem)">Trusted by the world’s leading technology brands</h2></div>
+    </div>
+    <ul class="chips light">
+      <li>IBM Value Partner</li><li>Microsoft Certified Partner</li><li>Cisco Select Certified Partner</li><li>Sangfor Platinum Partner</li><li>H3C Advanced Certified Partner</li><li>Hikvision Gold Partner</li><li>VMware Certified Partner</li><li>Sophos Certified Partner</li><li>Fortinet Silver Partner</li><li>APC Silver Partner</li><li>Schneider Vendor Accredited</li><li>Lenovo Business Partner</li><li>HP Business Partner</li><li>Kaspersky Preferred Reseller</li><li>Autodesk Authorized Reseller</li><li>Dell Enterprise Storage Solution</li>
+    </ul>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries" id="industries">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Industries We Serve</span>
+        <h2>Solutions for <span class="accent">Every Industry</span></h2>
+      </div>
+      <p class="lead" style="color:#b4c4e2">We have served clients across many sectors and can take on the IT challenges of yours.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind"><svg class="ic"><use href="#i-grad"/></svg>Education</div>
+      <div class="ind"><svg class="ic"><use href="#i-cross"/></svg>Healthcare</div>
+      <div class="ind"><svg class="ic"><use href="#i-landmark"/></svg>Government</div>
+      <div class="ind"><svg class="ic"><use href="#i-sprout"/></svg>Agriculture &amp; Energy</div>
+      <div class="ind"><svg class="ic"><use href="#i-headset"/></svg>BPO</div>
+      <div class="ind"><svg class="ic"><use href="#i-hardhat"/></svg>Construction</div>
+      <div class="ind"><svg class="ic"><use href="#i-store"/></svg>Retail, Hospitality &amp; Tourism</div>
+      <div class="ind"><svg class="ic"><use href="#i-truck"/></svg>Logistics &amp; Cooperatives</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Our Work</span>
+        <h2>Featured <span class="accent">Projects</span></h2>
+      </div>
+      <p class="lead">Real installations from our installed base.</p>
+    </div>
+    <div class="proj-grid">
+      <figure class="proj tall"><img src="assets/datacenter.jpg" alt="Data center server racks" loading="lazy"><figcaption class="cap"><small>Data Center</small><h3>Design &amp; Build</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/command.jpg" alt="Command center with video wall" loading="lazy"><figcaption class="cap"><small>Surveillance</small><h3>Centralized Monitoring &amp; Command Center</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/conference.jpg" alt="Conference room with audio system" loading="lazy"><figcaption class="cap"><small>Conferencing &amp; Audio</small><h3>Boardroom Systems</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/classroom.jpg" alt="Classroom with interactive display" loading="lazy"><figcaption class="cap"><small>Education</small><h3>Display &amp; Interactive Solutions</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/turnstile.jpg" alt="Turnstile and access control gates" loading="lazy"><figcaption class="cap"><small>Access Control</small><h3>Turnstile &amp; Speed Gates</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/cabling.jpg" alt="Structured cabling in a network rack" loading="lazy"><figcaption class="cap"><small>Network</small><h3>Structured Cabling</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/server.jpg" alt="Dell server installation" loading="lazy"><figcaption class="cap"><small>Servers</small><h3>Server Integration &amp; Implementation</h3></figcaption></figure>
+      <figure class="proj"><img src="assets/power.jpg" alt="Power plant facility" loading="lazy"><figcaption class="cap"><small>Power &amp; Cooling</small><h3>Power &amp; Cooling Solutions</h3></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section class="offices">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow">Where to Find Us</span><h2>Two Offices, <span class="accent">One Team</span></h2></div>
+    </div>
+    <div class="off-grid">
+      <div class="off"><svg class="ic"><use href="#i-pin"/></svg><h3>Main Office, Davao</h3><p>R3Hub Technologies Inc.<br>La Herencia Compound, F. Torres St., Davao City</p></div>
+      <div class="off"><svg class="ic"><use href="#i-pin"/></svg><h3>Cebu Office</h3><p>R3Hub Technologies Inc.<br>J&amp;G Building, H. Abellana Street, Canduman, Mandaue City</p></div>
+      <div class="off"><svg class="ic"><use href="#i-shield"/></svg><h3>Our Legitimacy</h3><p>Registered with the SEC, BIR, and PhilGEPS, with a valid Mayor’s Business Permit.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow">Get in Touch</span>
+      <h2>Let’s build something <span class="accent">reliable</span> together</h2>
+      <p class="lead">Tell us about your project and we’ll get back to you with the right solution.</p>
+      <ul class="clist">
+        <li><svg class="ic"><use href="#i-phone"/></svg><a href="tel:+63822332632">(082) 233-2632</a></li>
+        <li><svg class="ic"><use href="#i-mail"/></svg><a href="mailto:info@r3hub.net">info@r3hub.net</a></li>
+        <li><svg class="ic"><use href="#i-globe"/></svg><a href="https://www.r3hub.net">www.r3hub.net</a></li>
+        <li><svg class="ic"><use href="#i-pin"/></svg>La Herencia Bldg., F. Torres St., Davao City</li>
+      </ul>
+    </div>
+    <form id="quoteForm">
+      <h3>Request a quote</h3>
+      <div class="row">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Company<input name="company" autocomplete="organization"></label>
+      </div>
+      <div class="row">
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
+      </div>
+      <label>Solution needed
+        <select name="topic">
+          <option>Data center &amp; servers</option><option>Network infrastructure</option><option>Security &amp; surveillance</option><option>Power &amp; cooling</option><option>Software systems</option><option>Other</option>
+        </select>
+      </label>
+      <label>Message<textarea name="message" rows="4"></textarea></label>
+      <button class="btn btn-primary" type="submit">Send Request <svg class="ic"><use href="#i-arrow"/></svg></button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="#home" class="logo"><b><span class="r3">R3</span>Hub</b><small>SYSTEMS • SOLUTIONS • TOGETHER</small></a>
+        <p>Empowering Innovation, Driving Efficiency: Your Trusted IT Solution Provider.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul><li><a href="#about">About Us</a></li><li><a href="#services">Services</a></li><li><a href="#industries">Industries</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Get in Touch</h4>
+        <ul><li>(082) 233-2632</li><li>info@r3hub.net</li><li>La Herencia Bldg., F. Torres St., Davao City</li></ul>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <div class="social"><a href="https://fb.com/r3hubtech" aria-label="R3Hub on Facebook" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg></a><a href="https://www.r3hub.net" aria-label="R3Hub website"><svg class="ic"><use href="#i-globe"/></svg></a></div>
+      </div>
+    </div>
+    <div class="legal"><span>© <span id="yr">2026</span> R3Hub Technologies Inc. All rights reserved.</span><span>Better Technology. Stronger Business.</span></div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent=new Date().getFullYear();
+const nav=document.getElementById('nav'),btn=document.getElementById('menuBtn');
+btn.addEventListener('click',()=>{const o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',o)});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');btn.setAttribute('aria-expanded',false)}));
+// active link on scroll
+const links=[...nav.querySelectorAll('a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>s&&io.observe(s));
+// quote form -> opens email client
+document.getElementById('quoteForm').addEventListener('submit',e=>{
+  e.preventDefault();const f=new FormData(e.target);
+  const body=`Name: ${f.get('name')}\nCompany: ${f.get('company')}\nEmail: ${f.get('email')}\nPhone: ${f.get('phone')}\nSolution: ${f.get('topic')}\n\n${f.get('message')}`;
+  location.href=`mailto:info@r3hub.net?subject=${encodeURIComponent('Quote request: '+f.get('topic'))}&body=${encodeURIComponent(body)}`;
+});
+</script>
+</body>
+</html>
