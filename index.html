@@ -79,8 +79,9 @@ h3{font-size:1.1rem;letter-spacing:-.01em}
 /* Capabilities strip */
 .strip{background:#fff;position:relative;z-index:2;margin-top:-1px}
 .strip ul{display:grid;grid-template-columns:repeat(6,1fr)}
-.strip li{padding:34px 14px;text-align:center;border-right:1px solid var(--line);transition:background .25s}
+.strip li{text-align:center;border-right:1px solid var(--line);transition:background .25s}
 .strip li:last-child{border:0}
+.strip li a{display:block;padding:34px 14px;height:100%}
 .strip li:hover{background:var(--mist)}
 .strip .ic{font-size:2.3rem;color:var(--navy-800);margin:0 auto 12px;display:block;stroke-width:1.4}
 .strip li:hover .ic{color:var(--orange)}
@@ -110,6 +111,12 @@ section{padding:96px 0}
 .solutions .lead{color:#b4c4e2}
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:28px 24px;display:flex;flex-direction:column;gap:12px;transition:transform .25s,border-color .25s,background .25s}
+a.card{color:inherit}
+.card .go{margin-top:auto;padding-top:6px;display:inline-flex;align-items:center;gap:8px;color:var(--orange);font-weight:700;font-size:.85rem}
+.card:hover .go .ic{transform:translateX(4px)}
+.card .go .ic{transition:transform .2s}
+.proj:target{outline:3px solid var(--orange);outline-offset:4px}
+.card:target{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,107,26,.35)}
 .card:hover{transform:translateY(-6px);border-color:var(--orange);background:rgba(255,255,255,.07)}
 .card .ic{font-size:2.1rem;color:var(--orange);margin-bottom:6px}
 .card p{color:#b4c4e2;font-size:.92rem}
@@ -318,12 +325,12 @@ footer .logo{margin-bottom:16px}
 <div class="strip">
   <div class="wrap">
     <ul>
-      <li><svg class="ic"><use href="#i-server"/></svg><span>Data Center<br>Solutions</span></li>
-      <li><svg class="ic"><use href="#i-network"/></svg><span>Network<br>Infrastructure</span></li>
-      <li><svg class="ic"><use href="#i-shield"/></svg><span>Security &amp;<br>Surveillance</span></li>
-      <li><svg class="ic"><use href="#i-bolt"/></svg><span>Power &amp;<br>Cooling</span></li>
-      <li><svg class="ic"><use href="#i-cloud"/></svg><span>Cloud &amp;<br>Virtualization</span></li>
-      <li><svg class="ic"><use href="#i-monitor"/></svg><span>Software &amp;<br>Hardware</span></li>
+      <li><a href="#sol-datacenter"><svg class="ic"><use href="#i-server"/></svg><span>Data Center<br>Solutions</span></a></li>
+      <li><a href="#sol-network"><svg class="ic"><use href="#i-network"/></svg><span>Network<br>Infrastructure</span></a></li>
+      <li><a href="#sol-surveillance"><svg class="ic"><use href="#i-shield"/></svg><span>Security &amp;<br>Surveillance</span></a></li>
+      <li><a href="#sol-power"><svg class="ic"><use href="#i-bolt"/></svg><span>Power &amp;<br>Cooling</span></a></li>
+      <li><a href="#sol-cloud"><svg class="ic"><use href="#i-cloud"/></svg><span>Cloud &amp;<br>Virtualization</span></a></li>
+      <li><a href="#sol-software"><svg class="ic"><use href="#i-monitor"/></svg><span>Software &amp;<br>Hardware</span></a></li>
     </ul>
   </div>
 </div>
@@ -359,14 +366,14 @@ footer .logo{margin-bottom:16px}
       <p class="lead">From the server room to the front door, we provide end-to-end IT and infrastructure services tailored to your goals.</p>
     </div>
     <div class="cards">
-      <article class="card"><svg class="ic"><use href="#i-server"/></svg><h3>Data Center Solutions</h3><p>Design and build of data centers, plus server, storage, and hyper-converged infrastructure.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-network"/></svg><h3>Network Infrastructure</h3><p>SD-WAN, managed switches, access points, and structured cabling in copper and fiber.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-shield"/></svg><h3>Network Security</h3><p>Firewalls and secure connectivity, including VSAT and wireless point-to-point links.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-video"/></svg><h3>Surveillance &amp; Security</h3><p>CCTV, command centers, smart city systems, and access control with biometrics.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-bolt"/></svg><h3>Power &amp; Cooling</h3><p>UPS, precision air conditioning, generator sets, and solar powered systems.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-cloud"/></svg><h3>Managed Cloud Services</h3><p>Managed cloud services provider (MCSP) offerings and virtualization infrastructure.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-monitor"/></svg><h3>Display &amp; Audio</h3><p>Smart TVs, LED walls, kiosks, VoIP, conferencing, and background music systems.</p></article>
-      <article class="card"><svg class="ic"><use href="#i-doc"/></svg><h3>Software Systems</h3><p>ERP, hospital information systems, school systems, and software licenses.</p></article>
+      <a class="card" id="sol-datacenter" href="#proj-datacenter"><svg class="ic"><use href="#i-server"/></svg><h3>Data Center Solutions</h3><p>Design and build of data centers, plus server, storage, and hyper-converged infrastructure.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-network" href="#proj-cabling"><svg class="ic"><use href="#i-network"/></svg><h3>Network Infrastructure</h3><p>SD-WAN, managed switches, access points, and structured cabling in copper and fiber.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-security" href="#projects"><svg class="ic"><use href="#i-shield"/></svg><h3>Network Security</h3><p>Firewalls and secure connectivity, including VSAT and wireless point-to-point links.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-surveillance" href="#proj-command"><svg class="ic"><use href="#i-video"/></svg><h3>Surveillance &amp; Security</h3><p>CCTV, command centers, smart city systems, and access control with biometrics.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-power" href="#proj-power"><svg class="ic"><use href="#i-bolt"/></svg><h3>Power &amp; Cooling</h3><p>UPS, precision air conditioning, generator sets, and solar powered systems.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-cloud" href="#projects"><svg class="ic"><use href="#i-cloud"/></svg><h3>Managed Cloud Services</h3><p>Managed cloud services provider (MCSP) offerings and virtualization infrastructure.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-display" href="#proj-conference"><svg class="ic"><use href="#i-monitor"/></svg><h3>Display &amp; Audio</h3><p>Smart TVs, LED walls, kiosks, VoIP, conferencing, and background music systems.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="card" id="sol-software" href="#projects"><svg class="ic"><use href="#i-doc"/></svg><h3>Software Systems</h3><p>ERP, hospital information systems, school systems, and software licenses.</p><span class="go">View project <svg class="ic"><use href="#i-arrow"/></svg></span></a>
     </div>
     <div class="more">
       <h3>Also available</h3>
@@ -462,14 +469,14 @@ footer .logo{margin-bottom:16px}
       <p class="lead">Real installations from our installed base.</p>
     </div>
     <div class="proj-grid">
-      <figure class="proj tall"><img src="assets/datacenter.jpg" alt="Data center server racks" loading="lazy"><figcaption class="cap"><small>Data Center</small><h3>Design &amp; Build</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/command.jpg" alt="Command center with video wall" loading="lazy"><figcaption class="cap"><small>Surveillance</small><h3>Centralized Monitoring &amp; Command Center</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/conference.jpg" alt="Conference room with audio system" loading="lazy"><figcaption class="cap"><small>Conferencing &amp; Audio</small><h3>Boardroom Systems</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/classroom.jpg" alt="Classroom with interactive display" loading="lazy"><figcaption class="cap"><small>Education</small><h3>Display &amp; Interactive Solutions</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/turnstile.jpg" alt="Turnstile and access control gates" loading="lazy"><figcaption class="cap"><small>Access Control</small><h3>Turnstile &amp; Speed Gates</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/cabling.jpg" alt="Structured cabling in a network rack" loading="lazy"><figcaption class="cap"><small>Network</small><h3>Structured Cabling</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/server.jpg" alt="Dell server installation" loading="lazy"><figcaption class="cap"><small>Servers</small><h3>Server Integration &amp; Implementation</h3></figcaption></figure>
-      <figure class="proj"><img src="assets/power.jpg" alt="Power plant facility" loading="lazy"><figcaption class="cap"><small>Power &amp; Cooling</small><h3>Power &amp; Cooling Solutions</h3></figcaption></figure>
+      <figure class="proj tall" id="proj-datacenter"><img src="assets/datacenter.jpg" alt="Data center server racks" loading="lazy"><figcaption class="cap"><small>Data Center</small><h3>Design &amp; Build</h3></figcaption></figure>
+      <figure class="proj" id="proj-command"><img src="assets/command.jpg" alt="Command center with video wall" loading="lazy"><figcaption class="cap"><small>Surveillance</small><h3>Centralized Monitoring &amp; Command Center</h3></figcaption></figure>
+      <figure class="proj" id="proj-conference"><img src="assets/conference.jpg" alt="Conference room with audio system" loading="lazy"><figcaption class="cap"><small>Conferencing &amp; Audio</small><h3>Boardroom Systems</h3></figcaption></figure>
+      <figure class="proj" id="proj-classroom"><img src="assets/classroom.jpg" alt="Classroom with interactive display" loading="lazy"><figcaption class="cap"><small>Education</small><h3>Display &amp; Interactive Solutions</h3></figcaption></figure>
+      <figure class="proj" id="proj-turnstile"><img src="assets/turnstile.jpg" alt="Turnstile and access control gates" loading="lazy"><figcaption class="cap"><small>Access Control</small><h3>Turnstile &amp; Speed Gates</h3></figcaption></figure>
+      <figure class="proj" id="proj-cabling"><img src="assets/cabling.jpg" alt="Structured cabling in a network rack" loading="lazy"><figcaption class="cap"><small>Network</small><h3>Structured Cabling</h3></figcaption></figure>
+      <figure class="proj" id="proj-server"><img src="assets/server.jpg" alt="Dell server installation" loading="lazy"><figcaption class="cap"><small>Servers</small><h3>Server Integration &amp; Implementation</h3></figcaption></figure>
+      <figure class="proj" id="proj-power"><img src="assets/power.jpg" alt="Power plant facility" loading="lazy"><figcaption class="cap"><small>Power &amp; Cooling</small><h3>Power &amp; Cooling Solutions</h3></figcaption></figure>
     </div>
   </div>
 </section>
