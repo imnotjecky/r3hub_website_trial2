@@ -50,7 +50,9 @@ h3{font-size:1.1rem;letter-spacing:-.01em}
 /* Header */
 .header{position:sticky;top:0;z-index:50;background:rgba(6,19,48,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.07)}
 .header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
-.logo{display:flex;flex-direction:column;line-height:1}
+.logo{display:flex;align-items:center;line-height:1}
+.logo img{height:54px;width:auto}
+footer .logo img{height:64px}
 .logo b{font-size:2rem;font-weight:800;letter-spacing:-.04em;color:#fff}
 .logo b .r3{color:var(--orange)}
 .logo small{font-size:.5rem;letter-spacing:.2em;color:#9db0d2;margin-top:4px;font-weight:600}
@@ -201,7 +203,7 @@ footer .logo{margin-bottom:16px}
 .social a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;font-size:1.1rem;color:#fff;transition:background .2s,border-color .2s}
 .social a:hover{background:var(--orange);border-color:var(--orange);color:#fff}
 .legal{border-top:1px solid rgba(255,255,255,.08);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem}
-.legal span:last-child{border-left:3px solid var(--orange);padding-left:12px}
+.legal > span:last-child{border-left:3px solid var(--orange);padding-left:12px}
 
 /* Responsive */
 @media (max-width:1020px){
@@ -281,10 +283,7 @@ footer .logo{margin-bottom:16px}
 
 <header class="header">
   <div class="wrap">
-    <a href="#home" class="logo" aria-label="R3HUB Technologies home">
-      <b><span class="r3">R3</span>HUB</b>
-      <small>SYSTEMS • SOLUTIONS • TOGETHER</small>
-    </a>
+    <a href="#home" class="logo" aria-label="R3HUB Technologies home"><img src="assets/logo-light.png" alt="R3HUB Technologies Inc." width="570" height="223"></a>
     <nav class="nav" id="nav" aria-label="Main">
       <ul>
         <li><a href="#home" class="active">Home</a></li>
@@ -537,7 +536,7 @@ footer .logo{margin-bottom:16px}
   <div class="wrap">
     <div class="foot">
       <div>
-        <a href="#home" class="logo"><b><span class="r3">R3</span>HUB</b><small>SYSTEMS • SOLUTIONS • TOGETHER</small></a>
+        <a href="#home" class="logo"><img src="assets/logo-light.png" alt="R3HUB Technologies Inc." width="570" height="223"></a>
         <p>Empowering Innovation, Driving Efficiency: Your Trusted IT Solution Provider.</p>
       </div>
       <div>
