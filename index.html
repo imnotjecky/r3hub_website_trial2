@@ -524,7 +524,7 @@ footer .logo{margin-bottom:16px}
         </select>
       </label>
       <label>Message<textarea name="message" rows="4"></textarea></label>
-      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">
       <button class="btn btn-primary" type="submit" id="sendBtn">Send Request <svg class="ic"><use href="#i-arrow"/></svg></button>
       <p id="formStatus" role="status" aria-live="polite" style="font-size:.9rem;font-weight:600;min-height:1.2em"></p>
     </form>
@@ -566,28 +566,44 @@ const links=[...nav.querySelectorAll('a')];
 const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
 secs.forEach(s=>s&&io.observe(s));
-// Quote form: emails the request via FormSubmit (works on GitHub Pages, no backend).
-// TESTING: requests go to the test inbox below. To go live, change this to info@r3hub.net.
-const FORM_RECIPIENT='verdadjaychris@gmail.com';
+// Quote form: emails the request via Web3Forms (works on GitHub Pages, no backend).
+// TESTING: this access key delivers to the test inbox. To go live, create a key for
+// info@r3hub.net at web3forms.com and replace the key below.
+const WEB3FORMS_KEY='dc84732c-a850-4264-bac3-a2f5c28cc8a3';
 document.getElementById('quoteForm').addEventListener('submit',async e=>{
   e.preventDefault();
   const form=e.target,btn=document.getElementById('sendBtn'),st=document.getElementById('formStatus');
   const f=new FormData(form);
-  if(f.get('_honey')) return; // spam trap
+  if(form.botcheck&&form.botcheck.checked) return; // spam trap
   const payload={
-    Name:f.get('name'),Company:f.get('company')||'-',Email:f.get('email'),Phone:f.get('phone')||'-',
-    'Solution needed':f.get('topic'),Message:f.get('message')||'-',
-    _subject:'R3HUB website quote request: '+f.get('topic'),
-    _replyto:f.get('email'),_template:'table',_captcha:'false'
+    access_key:WEB3FORMS_KEY,
+    subject:'R3HUB website quote request: '+f.get('topic'),
+    from_name:'R3HUB Website',
+    name:f.get('name'),
+    email:f.get('email'),
+    company:f.get('company')||'-',
+    phone:f.get('phone')||'-',
+    solution_needed:f.get('topic'),
+    message:f.get('message')||'-',
+    botcheck:''
   };
   btn.disabled=true;btn.style.opacity='.7';st.style.color='var(--muted)';st.textContent='Sending your request…';
+  let reason='';
   try{
-    const r=await fetch('https://formsubmit.co/ajax/'+FORM_RECIPIENT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
-    const d=await r.json();
-    if(!r.ok||d.success==='false'||d.success===false) throw new Error(d.message||'failed');
-    form.reset();st.style.color='#1a7f4b';st.textContent='Thank you! Your request was sent. We will get back to you soon.';
+    const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+    const d=await r.json().catch(()=>({}));
+    console.log('Web3Forms response',r.status,d);
+    if(r.ok&&d.success){form.reset();st.style.color='#1a7f4b';st.textContent='Thank you! Your request was sent. We will get back to you soon.';return;}
+    reason=(d.message||('Server replied '+r.status)).toString().slice(0,160);
+    throw new Error(reason);
   }catch(err){
-    st.style.color='#c0392b';st.innerHTML='Sorry, we could not send your request. Please email us at <a href="mailto:info@r3hub.net" style="text-decoration:underline">info@r3hub.net</a> or call (082) 233-2632.';
+    console.error('Quote form error',err);
+    reason=reason||err.message||'Network error';
+    const body=encodeURIComponent('Name: '+f.get('name')+'\nCompany: '+(f.get('company')||'-')+'\nPhone: '+(f.get('phone')||'-')+'\nSolution: '+f.get('topic')+'\n\n'+(f.get('message')||''));
+    const mail='mailto:info@r3hub.net?subject='+encodeURIComponent('Quote request: '+f.get('topic'))+'&body='+body;
+    st.style.color='#c0392b';
+    st.innerHTML='Sorry, we could not send your request. Please <a href="'+mail+'" style="text-decoration:underline">email us at info@r3hub.net</a> or call (082) 233-2632.<span id="formDetail" style="display:block;font-weight:500;font-size:.78rem;opacity:.75;margin-top:4px"></span>';
+    document.getElementById('formDetail').textContent='Details: '+reason;
   }finally{btn.disabled=false;btn.style.opacity='';}
 });
 </script>
