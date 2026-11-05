@@ -122,22 +122,49 @@ a.card{color:inherit}
 .card:hover{transform:translateY(-6px);border-color:var(--orange);background:rgba(255,255,255,.07)}
 .card .ic{font-size:2.1rem;color:var(--orange);margin-bottom:6px}
 .card p{color:#b4c4e2;font-size:.92rem}
-.card{position:relative}
-.card:hover,.card:focus-visible{background:#0F2347;border-bottom-left-radius:0;border-bottom-right-radius:0;z-index:5}
-.card .detail{position:absolute;left:-1px;right:-1px;top:100%;margin-top:-1px;padding:6px 24px 22px;background:#0F2347;border:1px solid var(--orange);border-top:0;border-radius:0 0 var(--radius) var(--radius);box-shadow:0 30px 40px -20px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .25s,visibility .25s;pointer-events:none;z-index:6}
-.card:hover .detail,.card:focus-visible .detail{opacity:1;visibility:visible;transform:none}
-.card .detail h4{color:var(--orange);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
-.card .detail p{color:#dbe5f7;font-size:.88rem;margin-bottom:10px}
-.card .detail li{position:relative;padding-left:18px;color:#c3d1ea;font-size:.85rem;margin-bottom:6px}
+.card{position:relative;padding:0;flex-direction:row;gap:0}
+.card .main{flex:1 1 auto;min-width:0;padding:28px 24px;display:flex;flex-direction:column;gap:12px}
+.card .detail{display:none}
+.card .detail h4{color:var(--orange);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px}
+.card .detail p{color:#dbe5f7;font-size:.9rem;margin:0 0 12px}
+.card .detail ul{column-count:2;column-gap:24px}
+.card .detail li{position:relative;padding-left:18px;color:#c3d1ea;font-size:.85rem;break-inside:avoid;margin-bottom:9px}
 .card .detail li::before{content:"";position:absolute;left:2px;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--orange)}
-@media (hover:none){
-  .card .detail{position:static;opacity:1;visibility:visible;transform:none;margin:6px 0 4px;padding:14px 0 0;background:none;border:0;border-top:1px solid rgba(255,255,255,.14);border-radius:0;box-shadow:none;pointer-events:auto}
-  .card:hover,.card:focus-visible{border-bottom-left-radius:var(--radius);border-bottom-right-radius:var(--radius)}
+
+/* The hovered card itself grows sideways to show more; no separate panel */
+@media (hover:hover) and (min-width:1021px){
+  .card:is(:hover,:focus-visible){width:calc(300% + 40px);background:#fff;border-color:var(--orange);z-index:5;box-shadow:0 30px 50px -24px rgba(0,0,0,.7)}
+  .card:nth-child(4n+3):is(:hover,:focus-visible),.card:nth-child(4n):is(:hover,:focus-visible){justify-self:end;flex-direction:row-reverse}
+  .card:is(:hover,:focus-visible) .main{flex:none;width:calc((100% - 40px)/3)}
+  .card:is(:hover,:focus-visible) .detail{display:flex;flex-direction:column;justify-content:center;position:absolute;top:0;bottom:0;left:calc((100% - 40px)/3);right:0;padding:24px 30px;border-left:1px solid var(--line);animation:detailIn .35s ease both}
+  .card:nth-child(4n+3):is(:hover,:focus-visible) .detail,.card:nth-child(4n):is(:hover,:focus-visible) .detail{left:0;right:calc((100% - 40px)/3);border-left:0;border-right:1px solid var(--line)}
+}
+@media (hover:hover) and (min-width:621px) and (max-width:1020px){
+  .card:is(:hover,:focus-visible){width:calc(200% + 20px);background:#fff;border-color:var(--orange);z-index:5}
+  .card:nth-child(even):is(:hover,:focus-visible){justify-self:end;flex-direction:row-reverse}
+  .card:is(:hover,:focus-visible) .main{flex:none;width:calc((100% - 20px)/2)}
+  .card:is(:hover,:focus-visible) .detail{display:flex;flex-direction:column;justify-content:center;position:absolute;top:0;bottom:0;left:calc((100% - 20px)/2);right:0;padding:18px 22px;border-left:1px solid var(--line);animation:detailIn .35s ease both}
+  .card:nth-child(even):is(:hover,:focus-visible) .detail{left:0;right:calc((100% - 20px)/2);border-left:0;border-right:1px solid var(--line)}
+  .card .detail ul{column-count:1}.card .detail p{display:none}
+}
+@media (hover:hover) and (min-width:621px){
+  .card:is(:hover,:focus-visible) h3{color:var(--navy-900)}
+  .card:is(:hover,:focus-visible) .main p{color:var(--muted)}
+  .card:is(:hover,:focus-visible) .detail p,.card:is(:hover,:focus-visible) .detail li{color:var(--navy-800)}
+}
+@keyframes detailIn{from{opacity:0}to{opacity:1}}
+/* touch screens and phones: details are shown inside the card */
+@media (hover:none),(max-width:620px){
+  .card{flex-direction:column}
+  .card .detail{display:block;margin:0 24px 24px;padding-top:14px;border-top:1px solid rgba(255,255,255,.14)}
+  .card .detail ul{column-count:1}
+  .card .main{padding-bottom:14px}
 }
 .more{margin-top:44px;padding-top:34px;border-top:1px solid rgba(255,255,255,.12)}
 .more h3{font-size:.95rem;color:#fff;margin-bottom:16px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 .chips li{padding:8px 16px;border-radius:999px;font-size:.85rem;font-weight:600;border:1px solid rgba(255,255,255,.22);color:#dbe5f7}
+.chips.light li.and-more{border-color:var(--orange);color:var(--orange);background:var(--orange-100)}
 .chips.light li{border-color:var(--line);color:var(--navy-800);background:#fff}
 
 /* Process */
@@ -167,9 +194,55 @@ a.card{color:inherit}
 .industries{background:var(--navy-900);color:#fff;position:relative;overflow:hidden;isolation:isolate}
 .industries::before{content:"";position:absolute;inset:0;background:url(assets/datacenter.jpg) center/cover;opacity:.12;z-index:-1}
 .ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.ind{border:1px solid rgba(255,255,255,.16);background:rgba(10,31,68,.6);backdrop-filter:blur(4px);border-radius:var(--radius);padding:26px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;font-weight:700;font-size:.95rem;transition:background .25s,border-color .25s}
-.ind:hover{background:rgba(255,107,26,.14);border-color:var(--orange)}
-.ind .ic{font-size:2.1rem;color:var(--orange)}
+.ind{position:relative;min-height:128px;cursor:pointer;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.ind.open{z-index:30}
+.ind-box{position:absolute;left:0;top:0;width:100%;height:100%;border:1px solid rgba(255,255,255,.16);background:rgba(10,31,68,.78);backdrop-filter:blur(4px);border-radius:var(--radius);padding:22px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;font-weight:700;font-size:.95rem;transition:background .25s,border-color .25s}
+.ind:nth-last-child(-n+4) .ind-box{top:auto;bottom:0}
+.ind-head{display:flex;flex-direction:column;align-items:center;gap:12px}
+.ind-head .ic{font-size:2.1rem;color:var(--orange)}
+.ind-name{line-height:1.25}
+.ind-sub{display:none;margin-left:auto;font-size:.76rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9db0d2}
+.ind-logos{display:none;grid-template-columns:repeat(var(--cols,8),1fr);gap:10px;list-style:none;animation:detailIn .35s ease both}
+.chip{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden;height:92px;display:block}
+
+.chip img{display:block;width:100%;height:100%;object-fit:contain}
+.chip.more-chip{display:grid;place-items:center;background:var(--orange-100);color:var(--orange-600);font-weight:700;font-size:.9rem;text-align:center;padding:6px;border:1px solid var(--orange)}
+.ind:not(.open):focus-visible .ind-box{border-color:var(--orange)}
+.hint{display:block;margin-top:8px;font-size:.85rem;color:#9db0d2}
+.ind.open .ind-box{width:calc(400% + 48px);height:auto;min-height:100%;z-index:20;background:#fff;border-color:var(--orange);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);align-items:stretch;justify-content:flex-start;padding:22px 26px;gap:18px;text-align:left}
+.ind.open .ind-head{flex-direction:row;gap:12px;align-items:center;justify-content:flex-start}
+.ind.open .ind-sub{display:block;color:#6b7c99}
+.ind.open .ind-name{color:var(--navy-900)}
+.ind.open .ind-logos{display:grid}
+.ind:nth-child(4n+2).open .ind-box{left:calc(-100% - 16px)}
+.ind:nth-child(4n+3).open .ind-box{left:calc(-200% - 32px)}
+.ind:nth-child(4n).open .ind-box{left:calc(-300% - 48px)}
+@media (hover:hover){
+.ind:hover .ind-box{width:calc(400% + 48px);height:auto;min-height:100%;z-index:20;background:#fff;border-color:var(--orange);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);align-items:stretch;justify-content:flex-start;padding:22px 26px;gap:18px;text-align:left}
+.ind:hover .ind-head{flex-direction:row;gap:12px;align-items:center;justify-content:flex-start}
+.ind:hover .ind-sub{display:block;color:#6b7c99}
+.ind:hover .ind-name{color:var(--navy-900)}
+.ind:hover .ind-logos{display:grid}
+.ind:nth-child(4n+2):hover .ind-box{left:calc(-100% - 16px)}
+.ind:nth-child(4n+3):hover .ind-box{left:calc(-200% - 32px)}
+.ind:nth-child(4n):hover .ind-box{left:calc(-300% - 48px)}
+.ind:not(:hover):not(.open) .ind-box{}
+}
+@media (max-width:1020px){
+  .ind-grid .ind.open .ind-box,.ind-grid .ind:hover .ind-box{width:calc(200% + 16px)}
+  .ind:nth-last-child(-n+4) .ind-box{top:0;bottom:auto}
+  .ind:nth-last-child(-n+2) .ind-box{top:auto;bottom:0}
+  .ind:nth-child(4n+2).open .ind-box,.ind:nth-child(4n+3).open .ind-box,.ind:nth-child(4n).open .ind-box,
+  .ind:nth-child(4n+2):hover .ind-box,.ind:nth-child(4n+3):hover .ind-box,.ind:nth-child(4n):hover .ind-box{left:0}
+  .ind:nth-child(even).open .ind-box,.ind:nth-child(even):hover .ind-box{left:calc(-100% - 16px)}
+}
+@media (max-width:1020px){.ind{min-height:150px}}
+@media (max-width:1020px){
+  .ind.open .ind-logos,.ind:hover .ind-logos{display:flex;flex-wrap:wrap}
+  .chip{flex:1 1 96px;height:72px}.chip.wide{flex:2 1 192px}
+}
+@media (max-width:620px){.chip{flex:1 1 78px;height:58px}.chip.wide{flex:2 1 156px}.ind-logos{gap:8px}}
+@media (max-width:620px){.ind{min-height:168px}.ind-box{padding:18px 14px}.ind.open .ind-box{padding:18px 16px}.ind-sub{display:none!important}}
 
 /* Projects */
 .projects{background:#fff}
@@ -377,19 +450,19 @@ footer .logo{margin-bottom:16px}
       <p class="lead">From the server room to the front door, we provide end-to-end IT and infrastructure services tailored to your goals.</p>
     </div>
     <div class="cards">
-      <a class="card" id="sol-datacenter" href="#proj-datacenter"><svg class="ic"><use href="#i-server"/></svg><h3>Data Center Solutions</h3><p>Design and build of data centers, plus server, storage, and hyper-converged infrastructure.</p><div class="detail"><h4>What we deliver</h4><p>From layout and design through integration, installation, training and maintenance.</p><ul><li>Data center design and build</li><li>Server and storage solutions</li><li>Hyper-converged and virtualization infrastructure</li><li>Structured cabling in copper and fiber</li><li>Power and cooling with UPS and precision air conditioning</li></ul></div></a>
-      <a class="card" id="sol-network" href="#proj-cabling"><svg class="ic"><use href="#i-network"/></svg><h3>Network Infrastructure</h3><p>SD-WAN, managed switches, access points, and structured cabling in copper and fiber.</p><div class="detail"><h4>What we deliver</h4><p>Reliable connectivity for offices, campuses and multi-site organizations.</p><ul><li>SD-WAN and managed switches</li><li>Wi-Fi access points, indoor and outdoor</li><li>Wireless infrastructure, VSAT and point-to-point links</li><li>Structured cabling in copper and fiber</li><li>Brands chosen to match your preference</li></ul></div></a>
-      <a class="card" id="sol-security" href="#projects"><svg class="ic"><use href="#i-shield"/></svg><h3>Network Security</h3><p>Firewalls and secure connectivity, including VSAT and wireless point-to-point links.</p><div class="detail"><h4>What we deliver</h4><p>Protect your network and keep remote sites securely connected.</p><ul><li>Firewall solutions from partners such as Sophos and Fortinet</li><li>Secure VSAT connectivity</li><li>Wireless point-to-point links between sites</li><li>Design, implementation and ongoing support</li></ul></div></a>
-      <a class="card" id="sol-surveillance" href="#proj-command"><svg class="ic"><use href="#i-video"/></svg><h3>Surveillance &amp; Security</h3><p>CCTV, command centers, smart city systems, and access control with biometrics.</p><div class="detail"><h4>What we deliver</h4><p>Watch, control and secure your facilities from one place.</p><ul><li>CCTV design and installation</li><li>Command centers and centralized monitoring</li><li>Smart city systems</li><li>Access control, biometrics and time-attendance</li><li>Turnstiles, speed gates, fire alarm, burglar alarm and public address</li></ul></div></a>
-      <a class="card" id="sol-power" href="#proj-power"><svg class="ic"><use href="#i-bolt"/></svg><h3>Power &amp; Cooling</h3><p>UPS, precision air conditioning, generator sets, and solar powered systems.</p><div class="detail"><h4>What we deliver</h4><p>Keep critical systems running and at the right temperature.</p><ul><li>UPS power protection</li><li>Precision air conditioning (PACU)</li><li>Generator sets</li><li>Solar powered systems</li></ul></div></a>
-      <a class="card" id="sol-cloud" href="#projects"><svg class="ic"><use href="#i-cloud"/></svg><h3>Managed Cloud Services</h3><p>Managed cloud services provider (MCSP) offerings and virtualization infrastructure.</p><div class="detail"><h4>What we deliver</h4><p>Run your workloads without owning every piece of the infrastructure.</p><ul><li>Managed cloud services provider (MCSP) offerings</li><li>Virtualization and hyper-converged infrastructure</li><li>Servers and storage that support your cloud</li><li>Software licenses from our partners</li></ul></div></a>
-      <a class="card" id="sol-display" href="#proj-conference"><svg class="ic"><use href="#i-monitor"/></svg><h3>Display &amp; Audio</h3><p>Smart TVs, LED walls, kiosks, VoIP, conferencing, and background music systems.</p><div class="detail"><h4>What we deliver</h4><p>Clear visuals and sound for meeting rooms, classrooms and public spaces.</p><ul><li>Monitors, smart TVs and interactive TVs</li><li>LED walls and kiosks</li><li>VoIP and conferencing solutions</li><li>Background music (BGM) systems</li></ul></div></a>
-      <a class="card" id="sol-software" href="#projects"><svg class="ic"><use href="#i-doc"/></svg><h3>Software Systems</h3><p>ERP, hospital information systems, school systems, and software licenses.</p><div class="detail"><h4>What we deliver</h4><p>Business systems for the industries we serve.</p><ul><li>ERP systems</li><li>Hospital information systems</li><li>School systems</li><li>Software licenses and system implementation</li></ul></div></a>
+      <a class="card" id="sol-datacenter" href="#proj-datacenter"><div class="main"><svg class="ic"><use href="#i-server"/></svg><h3>Data Center Solutions</h3><p>Design and build of data centers, plus server, storage, and hyper-converged infrastructure.</p></div><div class="detail"><h4>What we deliver</h4><p>From layout and design through integration, installation, training and maintenance.</p><ul><li>Data center design and build</li><li>Server and storage solutions</li><li>Hyper-converged and virtualization infrastructure</li><li>Structured cabling in copper and fiber</li><li>Power and cooling with UPS and precision air conditioning</li></ul></div></a>
+      <a class="card" id="sol-network" href="#proj-cabling"><div class="main"><svg class="ic"><use href="#i-network"/></svg><h3>Network Infrastructure</h3><p>SD-WAN, managed switches, access points, and structured cabling in copper and fiber.</p></div><div class="detail"><h4>What we deliver</h4><p>Reliable connectivity for offices, campuses and multi-site organizations.</p><ul><li>SD-WAN and managed switches</li><li>Wi-Fi access points, indoor and outdoor</li><li>Wireless infrastructure, VSAT and point-to-point links</li><li>Structured cabling in copper and fiber</li><li>Brands chosen to match your preference</li></ul></div></a>
+      <a class="card" id="sol-security" href="#projects"><div class="main"><svg class="ic"><use href="#i-shield"/></svg><h3>Network Security</h3><p>Firewalls and secure connectivity, including VSAT and wireless point-to-point links.</p></div><div class="detail"><h4>What we deliver</h4><p>Protect your network and keep remote sites securely connected.</p><ul><li>Firewall solutions from partners such as Sophos and Fortinet</li><li>Secure VSAT connectivity</li><li>Wireless point-to-point links between sites</li><li>Design, implementation and ongoing support</li></ul></div></a>
+      <a class="card" id="sol-surveillance" href="#proj-command"><div class="main"><svg class="ic"><use href="#i-video"/></svg><h3>Surveillance &amp; Security</h3><p>CCTV, command centers, smart city systems, and access control with biometrics.</p></div><div class="detail"><h4>What we deliver</h4><p>Watch, control and secure your facilities from one place.</p><ul><li>CCTV design and installation</li><li>Command centers and centralized monitoring</li><li>Smart city systems</li><li>Access control, biometrics and time-attendance</li><li>Turnstiles, speed gates, fire alarm, burglar alarm and public address</li></ul></div></a>
+      <a class="card" id="sol-power" href="#proj-power"><div class="main"><svg class="ic"><use href="#i-bolt"/></svg><h3>Power &amp; Cooling</h3><p>UPS, precision air conditioning, generator sets, and solar powered systems.</p></div><div class="detail"><h4>What we deliver</h4><p>Keep critical systems running and at the right temperature.</p><ul><li>UPS power protection</li><li>Precision air conditioning (PACU)</li><li>Generator sets</li><li>Solar powered systems</li></ul></div></a>
+      <a class="card" id="sol-cloud" href="#projects"><div class="main"><svg class="ic"><use href="#i-cloud"/></svg><h3>Managed Cloud Services</h3><p>Managed cloud services provider (MCSP) offerings and virtualization infrastructure.</p></div><div class="detail"><h4>What we deliver</h4><p>Run your workloads without owning every piece of the infrastructure.</p><ul><li>Managed cloud services provider (MCSP) offerings</li><li>Virtualization and hyper-converged infrastructure</li><li>Servers and storage that support your cloud</li><li>Software licenses from our partners</li></ul></div></a>
+      <a class="card" id="sol-display" href="#proj-conference"><div class="main"><svg class="ic"><use href="#i-monitor"/></svg><h3>Display &amp; Audio</h3><p>Smart TVs, LED walls, kiosks, VoIP, conferencing, and background music systems.</p></div><div class="detail"><h4>What we deliver</h4><p>Clear visuals and sound for meeting rooms, classrooms and public spaces.</p><ul><li>Monitors, smart TVs and interactive TVs</li><li>LED walls and kiosks</li><li>VoIP and conferencing solutions</li><li>Background music (BGM) systems</li></ul></div></a>
+      <a class="card" id="sol-software" href="#projects"><div class="main"><svg class="ic"><use href="#i-doc"/></svg><h3>Software Systems</h3><p>ERP, hospital information systems, school systems, and software licenses.</p></div><div class="detail"><h4>What we deliver</h4><p>Business systems for the industries we serve.</p><ul><li>ERP systems</li><li>Hospital information systems</li><li>School systems</li><li>Software licenses and system implementation</li></ul></div></a>
     </div>
     <div class="more">
       <h3>Also available</h3>
       <ul class="chips">
-        <li>Fire detection &amp; burglar alarms</li><li>Public address systems</li><li>Time &amp; attendance</li><li>Turnstiles &amp; speed gates</li><li>Enterprise drones</li><li>Desktops, laptops &amp; printers</li><li>Wireless infrastructure</li><li>…and other IT-related solutions</li>
+        <li>Fire detection &amp; burglar alarms</li><li>Public address systems</li><li>Time &amp; attendance</li><li>Turnstiles &amp; speed gates</li><li>Enterprise drones</li><li>Desktops, laptops &amp; printers</li><li>Wireless infrastructure</li><li>…and many more</li>
       </ul>
     </div>
   </div>
@@ -441,7 +514,7 @@ footer .logo{margin-bottom:16px}
       <div><span class="eyebrow">Business Partners &amp; Certifications</span><h2 style="font-size:clamp(1.5rem,2.6vw,2rem)">Trusted by the world’s leading technology brands</h2></div>
     </div>
     <ul class="chips light">
-      <li>IBM Value Partner</li><li>Microsoft Certified Partner</li><li>Cisco Select Certified Partner</li><li>Sangfor Platinum Partner</li><li>H3C Advanced Certified Partner</li><li>Hikvision Gold Partner</li><li>VMware Certified Partner</li><li>Sophos Certified Partner</li><li>Fortinet Silver Partner</li><li>APC Silver Partner</li><li>Schneider Vendor Accredited</li><li>Lenovo Business Partner</li><li>HP Business Partner</li><li>Kaspersky Preferred Reseller</li><li>Autodesk Authorized Reseller</li><li>Dell Enterprise Storage Solution</li>
+      <li>IBM Value Partner</li><li>Microsoft Certified Partner</li><li>Cisco Select Certified Partner</li><li>Sangfor Platinum Partner</li><li>H3C Advanced Certified Partner</li><li>Hikvision Gold Partner</li><li>VMware Certified Partner</li><li>Sophos Certified Partner</li><li>Fortinet Silver Partner</li><li>APC Silver Partner</li><li>Schneider Vendor Accredited</li><li>Lenovo Business Partner</li><li>HP Business Partner</li><li>Kaspersky Preferred Reseller</li><li>Autodesk Authorized Reseller</li><li>Dell Enterprise Storage Solution</li><li class="and-more">…and many more</li>
     </ul>
   </div>
 </section>
@@ -454,17 +527,17 @@ footer .logo{margin-bottom:16px}
         <span class="eyebrow">Industries We Serve</span>
         <h2>Solutions for <span class="accent">Every Industry</span></h2>
       </div>
-      <p class="lead" style="color:#b4c4e2">We have served clients across many sectors and can take on the IT challenges of yours.</p>
+      <p class="lead" style="color:#b4c4e2">We have served clients across many sectors and can take on the IT challenges of yours.<span class="hint">Hover over an industry, or touch and hold on a phone, to see some of our clients.</span></p>
     </div>
     <div class="ind-grid">
-      <div class="ind"><svg class="ic"><use href="#i-grad"/></svg>Education</div>
-      <div class="ind"><svg class="ic"><use href="#i-cross"/></svg>Healthcare</div>
-      <div class="ind"><svg class="ic"><use href="#i-landmark"/></svg>Government</div>
-      <div class="ind"><svg class="ic"><use href="#i-sprout"/></svg>Agriculture &amp; Energy</div>
-      <div class="ind"><svg class="ic"><use href="#i-headset"/></svg>BPO</div>
-      <div class="ind"><svg class="ic"><use href="#i-hardhat"/></svg>Construction</div>
-      <div class="ind"><svg class="ic"><use href="#i-store"/></svg>Retail, Hospitality &amp; Tourism</div>
-      <div class="ind"><svg class="ic"><use href="#i-truck"/></svg>Logistics &amp; Cooperatives</div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Education: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-grad"/></svg><span class="ind-name">Education</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:56"><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-01.jpg" alt="Ateneo de Davao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-02.jpg" alt="Davao City Division, Department of Education" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-03.jpg" alt="DepEd Division of Tagum City" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-04.jpg" alt="Davao Doctors College" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-05.jpg" alt="Holy Cross of Davao College" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-06.jpg" alt="LPU Davao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-07.jpg" alt="Mapúa Malayan Colleges Mindanao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 7"><img src="assets/clients/edu-08.jpg" alt="Notre Dame of Dadiangas University" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-09.jpg" alt="Notre Dame University Cotabato City" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-10.jpg" alt="Philippine Women's College of Davao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-11.jpg" alt="University of Santo Tomas" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-12.jpg" alt="St. Peter's College of Toril" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-13.jpg" alt="University of Mindanao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-14.jpg" alt="University of the Philippines Mindanao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 8"><img src="assets/clients/edu-15.jpg" alt="Education client" loading="lazy" decoding="async"></li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Healthcare: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-cross"/></svg><span class="ind-name">Healthcare</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:30"><li class="chip" style="grid-column:span 5"><img src="assets/clients/health-01.jpg" alt="Alfonso G. Llanos Hospital Inc." loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/health-02.jpg" alt="Brokenshire Medical Center" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/health-03.jpg" alt="Lanang Premiere Doctors Hospital" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/health-04.jpg" alt="Southern Philippines Medical Center" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/health-05.jpg" alt="St. Paul University Surigao Hospital" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/health-06.jpg" alt="Davao del Norte Hospital" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/health-07.jpg" alt="Caraga Regional Hospital Surigao City" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/health-08.jpg" alt="Talon General Hospital" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/health-09.jpg" alt="St. Paul Hospital of Tuguegarao" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/health-10.jpg" alt="Davao Regional Medical Center" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/health-11.jpg" alt="Healthcare client" loading="lazy" decoding="async"></li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Government and Others: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-landmark"/></svg><span class="ind-name">Government &amp; Others</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:30"><li class="chip" style="grid-column:span 5"><img src="assets/clients/others-01.jpg" alt="Barangay Dalao Davao City" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/others-02.jpg" alt="City of Tagum" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/others-03.jpg" alt="MinDA" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/others-04.jpg" alt="PTV People's Television" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/others-05.jpg" alt="United Nations Development Programme" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/others-06.jpg" alt="SSI" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/others-07.jpg" alt="RBCOM Rural Bank of Compostela" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/others-08.jpg" alt="Philsaga Mining Corporation" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/others-09.jpg" alt="Filinvest" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/others-10.jpg" alt="Lungsod ng Dabaw" loading="lazy" decoding="async"></li><li class="chip more-chip" style="grid-column:span 6">…and many more</li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Agriculture and Energy: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-sprout"/></svg><span class="ind-name">Agriculture &amp; Energy</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:30"><li class="chip" style="grid-column:span 5"><img src="assets/clients/agri-01.jpg" alt="AboitizPower" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/agri-02.jpg" alt="Anflocor Group of Companies" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/agri-03.jpg" alt="Cotabato Light" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/agri-04.jpg" alt="Davao City Water District" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/agri-05.jpg" alt="General Santos City Water District" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/agri-06.jpg" alt="Auraland Group of Companies" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/agri-07.jpg" alt="Dole" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/agri-08.jpg" alt="MGTR Mommy Gina Tuna Resources" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/agri-09.jpg" alt="Lapanday Foods" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/agri-10.jpg" alt="Q Pigs Corporation" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/agri-11.jpg" alt="Syntek Agri-Bio Corporation" loading="lazy" decoding="async"></li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="BPO: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-headset"/></svg><span class="ind-name">BPO</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:4"><li class="chip" style="grid-column:span 1"><img src="assets/clients/bpo-01.jpg" alt="ARC PH BPO" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/bpo-02.jpg" alt="E-Coretech BPO Services" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/bpo-03.jpg" alt="Skynora" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/bpo-04.jpg" alt="Splace Business Process Outsourcing" loading="lazy" decoding="async"></li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Construction: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-hardhat"/></svg><span class="ind-name">Construction</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:5"><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-01.jpg" alt="Argus Builders" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-02.jpg" alt="Dadiangas Glass &amp; Construction Depot, Inc." loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-03.jpg" alt="ELS" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-04.jpg" alt="Vicente T. Lao Construction" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-05.jpg" alt="UBI" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-06.jpg" alt="Jinyi" loading="lazy" decoding="async"></li><li class="chip wide" style="grid-column:span 2"><img src="assets/clients/construction-07.jpg" alt="Agong Builders &amp; Construction Supply, Inc." loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-08.jpg" alt="HIJO Resources Corporation" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/construction-09.jpg" alt="Davao Golden Hardware, Inc." loading="lazy" decoding="async"></li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Logistics, Retail, Hospitality and Tourism: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-store"/></svg><span class="ind-name">Logistics, Retail, Hospitality &amp; Tourism</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:8"><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-01.jpg" alt="Abreeza" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-02.jpg" alt="Bamboo Mart" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-03.jpg" alt="Chema's by the Sea" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-04.jpg" alt="Gaisano Malls" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-05.jpg" alt="Hotel San Marco" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-06.jpg" alt="NCCC" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-07.jpg" alt="Philippine Ports Authority" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 1"><img src="assets/clients/retail-08.jpg" alt="Red Knight Gardens" loading="lazy" decoding="async"></li></ul></div></div>
+      <div class="ind" tabindex="0" role="button" aria-expanded="false" aria-label="Cooperatives: show some of our clients"><div class="ind-box"><div class="ind-head"><svg class="ic"><use href="#i-coop"/></svg><span class="ind-name">Cooperatives</span><span class="ind-sub">Some of our clients</span></div><ul class="ind-logos" style="--cols:30"><li class="chip" style="grid-column:span 5"><img src="assets/clients/coop-01.jpg" alt="AMPC Audao Multi-Purpose Cooperative" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/coop-02.jpg" alt="Cooperative client" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/coop-03.jpg" alt="Baug Carp Beneficiaries Multi-Purpose Cooperative" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/coop-04.jpg" alt="Cooperative client" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/coop-05.jpg" alt="Coop Mambajao Multi-Purpose Cooperative" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 5"><img src="assets/clients/coop-06.jpg" alt="Panabo Multi-Purpose Cooperative" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/coop-07.jpg" alt="STA. Catalina Credit Cooperative" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/coop-08.jpg" alt="Cooperative client" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/coop-09.jpg" alt="People's Micro-Finance Cooperative Zamboanga" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/coop-10.jpg" alt="Toril Community Cooperative" loading="lazy" decoding="async"></li><li class="chip" style="grid-column:span 6"><img src="assets/clients/coop-11.jpg" alt="Pantukan Chess Club MPC" loading="lazy" decoding="async"></li></ul></div></div>
     </div>
   </div>
 </section>
@@ -514,7 +587,7 @@ footer .logo{margin-bottom:16px}
       <h2>Let’s build something <span class="accent">reliable</span> together</h2>
       <p class="lead">Tell us about your project and we’ll get back to you with the right solution.</p>
       <ul class="clist">
-        <li><svg class="ic"><use href="#i-phone"/></svg><a href="tel:+63822332632">(082) 233-2632</a></li>
+        <li><svg class="ic"><use href="#i-phone"/></svg><a href="tel:+63823084045">(082) 308-4045</a></li>
         <li><svg class="ic"><use href="#i-mail"/></svg><a href="mailto:info@r3hub.net">info@r3hub.net</a></li>
         <li><svg class="ic"><use href="#i-globe"/></svg><a href="https://www.r3hub.net">www.r3hub.net</a></li>
         <li><svg class="ic"><use href="#i-pin"/></svg>La Herencia Bldg., F. Torres St., Davao City</li>
@@ -523,7 +596,7 @@ footer .logo{margin-bottom:16px}
     <form id="quoteForm">
       <h3>Request a quote</h3>
       <div class="row">
-        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Name<input name="name" required autocomplete="name" inputmode="text" maxlength="80" pattern="[A-Za-zÀ-ÖØ-öø-ÿ .&#39;’\-]+" title="Letters only, no numbers" placeholder="Your full name"></label>
         <label>Company<input name="company" autocomplete="organization"></label>
       </div>
       <div class="row">
@@ -557,7 +630,7 @@ footer .logo{margin-bottom:16px}
       </div>
       <div>
         <h4>Get in Touch</h4>
-        <ul><li>(082) 233-2632</li><li>info@r3hub.net</li><li>La Herencia Bldg., F. Torres St., Davao City</li></ul>
+        <ul><li>(082) 308-4045</li><li>info@r3hub.net</li><li>La Herencia Bldg., F. Torres St., Davao City</li></ul>
       </div>
       <div>
         <h4>Follow Us</h4>
@@ -614,10 +687,50 @@ document.getElementById('quoteForm').addEventListener('submit',async e=>{
     const body=encodeURIComponent('Name: '+f.get('name')+'\nCompany: '+(f.get('company')||'-')+'\nPhone: '+(f.get('phone')||'-')+'\nSolution: '+f.get('topic')+'\n\n'+(f.get('message')||''));
     const mail='mailto:info@r3hub.net?subject='+encodeURIComponent('Quote request: '+f.get('topic'))+'&body='+body;
     st.style.color='#c0392b';
-    st.innerHTML='Sorry, we could not send your request. Please <a href="'+mail+'" style="text-decoration:underline">email us at info@r3hub.net</a> or call (082) 233-2632.<span id="formDetail" style="display:block;font-weight:500;font-size:.78rem;opacity:.75;margin-top:4px"></span>';
+    st.innerHTML='Sorry, we could not send your request. Please <a href="'+mail+'" style="text-decoration:underline">email us at info@r3hub.net</a> or call (082) 308-4045.<span id="formDetail" style="display:block;font-weight:500;font-size:.78rem;opacity:.75;margin-top:4px"></span>';
     document.getElementById('formDetail').textContent='Details: '+reason;
   }finally{btn.disabled=false;btn.style.opacity='';}
 });
+
+// Industries: hover (mouse) or long-press (touch) expands a tile to show client logos
+(()=>{
+  const tiles=[...document.querySelectorAll('.ind')];
+  const setOpen=(t,o)=>{t.classList.toggle('open',o);t.setAttribute('aria-expanded',o?'true':'false')};
+  const closeAll=ex=>tiles.forEach(t=>{if(t!==ex)setOpen(t,false)});
+  tiles.forEach(t=>{
+    let timer=null,sx=0,sy=0,pressed=false;
+    t.addEventListener('pointerdown',e=>{
+      if(e.pointerType==='mouse')return;
+      sx=e.clientX;sy=e.clientY;pressed=false;clearTimeout(timer);
+      timer=setTimeout(()=>{pressed=true;closeAll(t);setOpen(t,true);if(navigator.vibrate)navigator.vibrate(15)},450);
+    });
+    const cancel=()=>clearTimeout(timer);
+    t.addEventListener('pointerup',cancel);t.addEventListener('pointercancel',cancel);
+    t.addEventListener('pointermove',e=>{if(Math.abs(e.clientX-sx)>10||Math.abs(e.clientY-sy)>10)cancel()});
+    t.addEventListener('contextmenu',e=>{if(e.pointerType!=='mouse'||pressed)e.preventDefault()});
+    t.addEventListener('click',e=>{
+      if(pressed){pressed=false;return}
+      if(t.classList.contains('open'))setOpen(t,false);
+    });
+    t.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();const o=!t.classList.contains('open');closeAll(t);setOpen(t,o)}
+      if(e.key==='Escape')setOpen(t,false);
+    });
+    t.addEventListener('blur',()=>setOpen(t,false));
+  });
+  document.addEventListener('pointerdown',e=>{if(!e.target.closest('.ind'))closeAll(null)});
+})();
+
+// Name field: letters only (strips numbers and symbols as the visitor types)
+(()=>{
+  const nameInput=document.querySelector('#quoteForm input[name="name"]');
+  if(!nameInput)return;
+  const bad=/[^A-Za-zÀ-ÖØ-öø-ÿ .'’\-]/g;
+  nameInput.addEventListener('input',()=>{
+    const clean=nameInput.value.replace(bad,'');
+    if(clean!==nameInput.value){const pos=nameInput.selectionStart-(nameInput.value.length-clean.length);nameInput.value=clean;try{nameInput.setSelectionRange(pos,pos)}catch(_){}}
+  });
+})();
 </script>
 </body>
 </html>
